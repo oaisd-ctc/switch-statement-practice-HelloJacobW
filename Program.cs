@@ -20,36 +20,51 @@ public class Program{
         }
         num += add;
         }
+        if(t){
+        if(((x/1000)%10) > 0 && f)
+        add = "-" + Number(((x/1000)%10));
+        num += add + " Thousand ";
+        t = true;
+        }
+        if(((x/1000) > 0) && !t && f){
+        add = Number (x/1000);
+        num += add + " Thousand ";
+        t = true;
+        }
         if(!f){
         num += " Thousand ";
         f = true;
         }
-        if(t){
-        if(((x/1000)%10) > 0)
-        add = "-" + Number(((x/1000)%10));
-        num += add + " Thousand ";
-        }
-        if(((x/1000) > 0) && !t){
-        add = Number (x/1000);
-        num += add + " Thousand ";
-        }
         if (((x/100)%10)>0){
         add = Number((x/100)%10);
         num += add + " Hundred ";
+        t = true;
         }
         if (((x/10)%10)>0){
-        t = false;
+        t = true;
         add = Tens((x/10)%10);
         if (add.Equals("teen")){
         f = false;
-        t = true;
-        add = Teens(x/1000);
+        add = Teens(x%100);
         }
         num += add;
         }
-        if ((x%10) > 0 && !t){
-
+        if (((x/10)%10) > 0 && !t){
+        t = true;
+        add = Tens(x%10);
+        if(add.Equals("teen")){
+        f = false;
+        add = Teens(x%100);
         }
+        num += add;
+        }
+        if (t && f)
+        num += "-";
+        if (x % 10 > 0 && f){
+        add = Number(x%10);
+        num += add;
+        }
+        Console.WriteLine(num);
     }
     public static string Number(int y){
     if(y==1)
@@ -95,6 +110,8 @@ public class Program{
     return "problem";
     }
     public static string Teens(int y){
+    if(y==10)
+    return "Ten";
     if(y==11)
     return "Eleven";
     if(y==12)
